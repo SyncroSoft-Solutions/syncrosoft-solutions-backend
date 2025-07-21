@@ -15,14 +15,20 @@ const BACKEND_URL =
     ? process.env.BACKEND_URL
     : `http://localhost:${PORT}`;
 
-// 🛡️ CORS
-const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173"];
+// ✅ Updated allowed origins
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://syncrosoft-solutions.vercel.app", // replace with your frontend domain
+];
+
+// 🛡️ CORS middleware
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error("❌ Blocked CORS origin:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
