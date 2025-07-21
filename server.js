@@ -15,18 +15,12 @@ const BACKEND_URL =
     ? process.env.BACKEND_URL
     : `http://localhost:${PORT}`;
 
-// 🛡️ CORS
-const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173"];
+// ✅ Allow All Origins for CORS
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
